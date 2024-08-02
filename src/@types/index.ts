@@ -34,3 +34,9 @@ export interface ContextProps {
         id: string
     }
 }
+
+export interface SquareProps {
+    id: string,
+    isX: boolean
+    isO: boolean
+}
