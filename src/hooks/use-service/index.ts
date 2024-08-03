@@ -1,6 +1,6 @@
 import axios from "axios"
 import { getCookie } from "cookies-next"
-import { getCredentialUser } from "./login"
+import { loginUser } from "./login"
 import { updateImageAvatar, postUser } from "./users"
 
 const token = getCookie("token")
@@ -13,7 +13,7 @@ export const api = axios.create({
 })
 
 export {
-    getCredentialUser,
+    loginUser,
     updateImageAvatar,
     postUser
 }

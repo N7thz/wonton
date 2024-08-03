@@ -10,14 +10,12 @@ import { Card, CardHeader, CardTitle, CardContent } from "./ui/card"
 import { Eye, EyeOff, XCircle } from "lucide-react"
 import { FormRegisterType } from "@/@types"
 import { FormRegisterSchema } from "@/schemas"
-import { usePathname, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { Toaster } from "./toaster"
 import { postUser } from "@/hooks/use-service"
 import { twMerge } from "tailwind-merge"
 
 export const FormRegister = () => {
-
-    const pathname = usePathname() as "/register" | "/login"
 
     const [isVisible, setIsVisible] = useState<boolean>(true)
     const [isError, setIsError] = useState<boolean>(false)
@@ -43,11 +41,11 @@ export const FormRegister = () => {
 
     function registerUser(data: FormRegisterType) {
 
-        const { confirm_password, email, password } = data
+        const { email, password } = data
 
         if (isNotSamePasswords) return
 
-        postUser(data)
+        postUser({ email, password })
             .then(res => {
                 const { status } = res
 
@@ -137,7 +135,14 @@ export const FormRegister = () => {
                             </span>
                         }
                         <div className="w-full flex justify-end">
-                            <Button type="submit">
+                            <Button
+                                type="submit"
+                                disabled={isNotSamePasswords}
+                                className={twMerge(
+                                    "hover:bg-violet-600",
+                                    "disabled:cursor-not-allowed"
+                                )}
+                            >
                                 Confirm
                             </Button>
                         </div>
@@ -149,11 +154,7 @@ export const FormRegister = () => {
                 <Toaster
                     variant="destructive"
                     toaster_title="Error"
-                    toaster_message={
-                        pathname === "/register"
-                            ? "Admin already exist"
-                            : "Invalid email or password"
-                    }
+                    toaster_message="Admin already exist"
                     className="absolute bottom-4 right-4"
                 >
                     <XCircle />

@@ -8,6 +8,8 @@ export async function POST(request: NextRequest) {
 
     const { email, password }: User = await request.json()
 
+    console.log(email, password)
+
     const user = await prisma.user.findUnique({
         where: {
             email
@@ -26,8 +28,6 @@ export async function POST(request: NextRequest) {
 
     if (user && isPasswordCorretly) {
 
-        const { email } = user
-
         const KEY = process.env.JWT_KEY!
 
         const token = jwt.sign({ email: user.email }, KEY, {
@@ -36,7 +36,15 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({
             token,
-            email
+            user
         })
     }
+
+    return NextResponse.json(
+        "error",
+        {
+            status: 400,
+            statusText: "Invalid email or password"
+        }
+    )
 }   

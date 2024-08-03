@@ -11,14 +11,19 @@ export const GameRoom = () => {
     const [activePlayer, setActivePlayer] = useState<"X" | "O">("X")
     const [squares, setSquares] = useState<SquareProps[]>(squaresObject)
 
-    console.log(squares)
+    function move(square: SquareProps, i: number) {
+        changeStateSquare(square, i)
+        validadeWin()
+    }
 
     function changeStateSquare(square: SquareProps, i: number) {
 
-        if (activePlayer === "X") {
+        const { isO, isX } = square
+
+        if (activePlayer === "X" && !isO) {
             square.isX = true
             setActivePlayer("O")
-        } else {
+        } else if (activePlayer === "O" && !isX) {
             square.isO = true
             setActivePlayer("X")
         }
@@ -29,6 +34,8 @@ export const GameRoom = () => {
 
         setSquares(newSquares)
     }
+
+    function validadeWin() {}
 
     return (
         <div
@@ -46,7 +53,7 @@ export const GameRoom = () => {
                             <div
                                 key={id}
                                 className="size-full bg-background flex justify-center items-center cursor-pointer"
-                                onClick={() => changeStateSquare(square, index)}
+                                onClick={() => move(square, index)}
                             >
                                 {isX && <X className="size-10/12" />}
                                 {isO && <Circle className="size-10/12" />}

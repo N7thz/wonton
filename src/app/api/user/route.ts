@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     })
 
     if (isUserAlreadyExist) {
-        return NextResponse.json("ADMIN already exist", {
+        return NextResponse.json("email already exist", {
             status: 400
         })
     }

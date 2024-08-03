@@ -11,9 +11,9 @@ import { z } from "zod"
 export type FormLoginType = z.infer<typeof FormLoginSchema>
 export type FormRegisterType = z.infer<typeof FormRegisterSchema>
 
-export interface getCredentialUserResponse {
+export interface loginUserResponse {
     token: string
-    email: string
+    user: User
 }
 
 export interface ToasterProps extends ComponentProps<"div"> {
@@ -23,9 +23,9 @@ export interface ToasterProps extends ComponentProps<"div"> {
 }
 
 
-export interface DialogOptionsPostProps extends ComponentProps<"div"> {
+export interface DialogProps extends ComponentProps<"div"> {
     trigger: ReactNode
-    title: string
+    title?: string
     description?: string
 }
 

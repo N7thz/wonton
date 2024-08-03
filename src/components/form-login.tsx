@@ -12,7 +12,7 @@ import { FormLoginType, FormRegisterType } from "@/@types"
 import { FormLoginSchema } from "@/schemas"
 import { usePathname, useRouter } from "next/navigation"
 import { Toaster } from "./toaster"
-import { getCredentialUser } from "@/hooks/use-service"
+import { loginUser } from "@/hooks/use-service"
 import { setCookie } from "cookies-next"
 
 export const FormLogin = () => {
@@ -21,7 +21,7 @@ export const FormLogin = () => {
 
     const [isVisible, setIsVisible] = useState<boolean>(true)
     const [isError, setIsError] = useState<boolean>(false)
-    
+
     const { push } = useRouter()
 
     const Icon = isVisible ? Eye : EyeOff
@@ -35,7 +35,7 @@ export const FormLogin = () => {
     })
 
     function login(data: FormLoginType) {
-        getCredentialUser(data)
+        loginUser(data)
             .then(res => {
                 const { data: { token }, status } = res
 

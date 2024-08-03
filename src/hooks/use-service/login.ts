@@ -1,8 +1,8 @@
-import { FormLoginType, getCredentialUserResponse } from "@/@types"
+import { FormLoginType, loginUserResponse } from "@/@types"
 import { AxiosResponse } from "axios"
 import { api } from "."
 
-export function getCredentialUser(data: FormLoginType): Promise<AxiosResponse<getCredentialUserResponse>> {
+export function loginUser(data: FormLoginType): Promise<AxiosResponse<loginUserResponse>> {
 
     const url = "/login"
 

@@ -6,8 +6,6 @@ export async function GET(request: NextRequest) {
 
     const decoded = validateToken(request)
 
-    console.log(decoded)
-
     if (!decoded) return NextResponse.json(
         "unauthorized", {
         status: 401,
